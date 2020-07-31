@@ -11,7 +11,7 @@ namespace WebApplication2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +21,9 @@ namespace WebApplication2.Models
         }
     
         public int CategoryId { get; set; }
+        [Required(ErrorMessage ="Enter Category Name")]
+        [StringLength(50,MinimumLength =3, ErrorMessage = "Must contain atleast 3 Characters")]
+
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

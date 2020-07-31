@@ -1,0 +1,59 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<WebApplication2.Models.ViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetItemName</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Action("~/scripts/jquery-3.3.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Action("~/scripts/bootstrap.min.js")"></script>
+</head>
+
+<p>
+    @using (Html.BeginForm("Index","Home",FormMethod.Get))
+    {
+    <h2><b>Search By  Item:</b></h2>
+    @Html.TextBox("search")<input type="submit" value="Search"/>
+    }
+</p>
+<body>
+    <div class="container-fluid py-4">
+        <h4 class="text-center text-uppercase">GetItemName</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+
+                    <th>Category Name</th>
+                    <th>SubCategory Name</th>
+                    <th>Item Name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.category.Name</td>
+                        <td>@item.subcategory.Name</td>
+                        <td>@item.item.Name</td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+
+   
+</body>
+</html>

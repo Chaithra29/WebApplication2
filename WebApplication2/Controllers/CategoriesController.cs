@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,20 +7,22 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication2.Data;
 using WebApplication2.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace WebApplication2.Controllers
 {
     public class CategoriesController : Controller
     {
-        private WebApplication2Context db = new WebApplication2Context();
+        private ShoppingEntities db = new ShoppingEntities();
 
         // GET: Categories
-        //to get all catogeries
-        public ActionResult Index()
+        //LoadPage with 3 rows
+        public ActionResult Index(int? page)
         {
-            return View(db.Categories.ToList());
+            
+            return View(db.Categories.ToList().ToPagedList(page ?? 1,3));
         }
 
         // GET: Categories/Details/5
@@ -44,8 +47,7 @@ namespace WebApplication2.Controllers
         }
 
         // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryId,Name")] Category category)
@@ -76,8 +78,7 @@ namespace WebApplication2.Controllers
         }
 
         // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoryId,Name")] Category category)
