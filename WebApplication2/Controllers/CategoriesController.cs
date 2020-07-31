@@ -16,6 +16,7 @@ namespace WebApplication2.Controllers
         private WebApplication2Context db = new WebApplication2Context();
 
         // GET: Categories
+        //to get all catogeries
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
